@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="stylesheet" href="css/estilos.css">
+		<title>Puzzle HTML5</title>
+    </head>
+    <body>
+        <header>
+            <h1><a href="index.html">Puzzle HTML5</a></h1>
+        </header>
+        <main>
+            <!-- mensaje emergente -->
+            <div>
+                <div><p id="msg">Prueba del mensaje emergente</p></div>
+                <button class="btn" onclick="cerrar()">Cerrar</button>
+            </div>
+            
+            <!-- seccion para elegir la imagen -->
+            <section>
+                <h2>Elige la imagen</h2>
+                <img id="imgOrig" src="images/HTML5_Logo_256.png" alt="Imagen Puzzle" onclick="cargaImg()">
+                <div>
+                    <p id="contador">Movimientos: 0</p>
+                </div>
+                <button class="btn" onclick="cargaImg()">Selecciona la imagen</button>
+                <input type="file" id="cargar" onchange="carga()">
+            </section>
+            
+            <!-- puzzle canvas -->
+            <section class="puzzle">
+                <canvas id="puzzle" width="480" height="360">
+                Tu navegador no soporta canvas.
+                </canvas>
+            </section>
+            
+            <!-- contenedor con las piezas -->
+            <section class="puzzle">
+                <canvas id="contenedor" width="480" height="360">
+                Tu navegador no soporta canvas.
+                </canvas>
+            </section>
+            
+            <!-- boton para corregir el puzzle -->
+            <aside><button class="btn" onclick="corregir()">Comprobar</button></aside>
+            
+        </main>
+        <footer>
+            <ul>
+				<li>Contacto: mathewrios61@gmail.com</li>
+				<li>Copyright 2015</li>
+				<li>Mayo 2015</li>
+				<li><a href="acerca.html">Sobre Nosotros</a></li>
+			</ul>
+        </footer>
+        <script src="js/funciones.js" type="text/javascript"></script>
+    </body>
+</html>

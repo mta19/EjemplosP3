@@ -1,0 +1,222 @@
+@import url(http://fonts.googleapis.com/css?family=Lobster);
+
+html{
+
+    width: 100%;
+}
+
+body{
+    
+    width: 100%;
+    margin: 0;
+    background-color: lightslategray;
+    height: 100%;
+}
+
+header{
+    
+    text-align: center;
+    width: 100%;
+    height: 8em;
+    background-color: lavender;
+}
+
+p, h2, h3{
+
+    font-family: 'Lobster', cursive;
+}
+
+h3{
+
+    text-align: center;
+    font-size: 2.2em;
+    margin-bottom: 0;
+    text-decoration: underline;
+}
+
+h1{
+
+    margin: 0;
+    font-family: 'Lobster', cursive;
+    color: darkslateblue;
+    padding-top: 0.6em;
+    font-size: 3em;
+}
+
+h1>a{
+
+    text-decoration: none;
+}
+
+main{
+
+    height: 100%;
+}
+
+main>section:first-of-type{
+    
+    text-align: center;
+    margin-bottom: 2em;
+}
+
+main>div{
+
+    position: absolute;
+    height: 100px;
+    width: 100%;
+    text-align: center;
+    top: -490px;
+}
+
+main>div>div{
+
+    padding-left: 12em;
+    padding-right: 11em;
+}
+
+main>div>div>p{
+
+    background-color: brown; 
+    height: 6em;
+    padding-top: 4em;
+    color: bisque;
+    font-size: 1.2em;
+    font-family: 'Lobster', cursive;
+    box-shadow: 0px 5px 6px #000;
+}
+
+article{
+
+    text-align: center;
+    padding: 3em;
+}
+
+article>p{
+
+    font-size: 1.3em;
+}
+
+article>ul{
+
+    list-style: none;
+    padding: 0;
+}
+
+article>ul>li{
+
+    font-family: 'Lobster', cursive;
+    font-size: 1.3em;
+}
+
+article>a{
+
+    font-family: 'Lobster', cursive;
+    font-size: 1.3em;
+    color: lavender;
+}
+
+article>a:hover{
+
+    color: black;
+}
+
+section>input{
+
+    width: 0;
+    height: 0;
+}
+
+section>div>p{
+
+    font-size: 2em;
+}
+
+img{
+
+    width: 20em;
+    height: 20em;
+}
+
+canvas{
+
+    border: 1px solid #000;
+    box-shadow: 0px 2px 15px #000;
+}
+
+aside{
+
+    text-align: center;
+    padding-top: 24em;
+    margin-bottom: 2em;
+}
+
+footer{
+
+    background-color: lavender;
+}
+
+footer>ul{
+
+    width: 100%;
+    display: inline-block;
+    list-style: none;
+    padding: 0px;
+}
+
+footer>ul>li{
+
+    margin: 0;
+    float: left;
+    width: 25%;
+    text-align: center;
+    font-family: 'Lobster', cursive;
+}
+
+footer>ul>li>a{
+
+    color: #000;
+    text-decoration: none;
+}
+
+footer>ul>li>a:hover{
+
+    text-decoration: underline;
+}
+
+.puzzle{
+
+    float: left;
+    width: 50%;
+    text-align: center;
+}
+
+.btn{
+    
+    background: midnightblue;
+    -webkit-border-radius: 5;
+    -moz-border-radius: 5;
+    border-radius: 5px;
+    font-family: 'Lobster', cursive;
+    color: #ffffff;
+    font-size: 1em;
+    padding: 10px 20px;
+    text-decoration: none;
+    box-shadow: 1px 3px 5px #000;
+    border: #000 solid 1px;
+}
+
+.btn:hover{
+    
+    background: cornflowerblue;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+@media screen and (max-width: 1005px){
+
+
+    .puzzle{
+    
+        width: 100%;
+    }
+}

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+
+<html>
+
+<head lang ="es">
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" type="text/css" media="screen and (color)" href="css/estilos.css">
+	<script src="javaScript/funciones.js" type="text/javascript"></script>
+
+
+	<title>Puzzle Rubi | Juego</title>
+
+</head>
+
+<body >
+
+
+
+<header id="header" class ="transparentar">
+	<a href="index.html"><img src="iconos/logo.png" alt="Logo del sitio" id="imgLogo"></a> 
+	<h1 id="h1">Puzzle Rubi</h1>
+</header>
+
+<main id="main" >
+
+	<section id="sectionCargador" class ="transparentar">
+		<h2 id="h2Cargador">Seccion para cargar la imagen</h2>
+		<p id="pCargador">Seleccione o arrastre una imagen para empezar a jugar</p>
+		<div>
+		<img id="imgSelecionada" src="imagenes/arrastrar.png" alt="Imagen seleccionada" width="480" height="360" onClick="clickEnButoImagen();">
+		</div>
+
+		<button id="buttonSeleccionar" onclick="clickEnButoImagen();">Examinar</button>
+		<input id="inputSeleccionar" type="file" onchange="cargarImagen();" accept="image/*">
+
+		
+		
+	</section>
+
+
+	<section id="sectionPuzzle" class ="transparentar">
+		<h2 id="h2Puzzle">Seccion para colocar las piezas del puzzle</h2>
+		<div><canvas id="canvasPuzzle" width="480" height="360" draggable="true" ondrop="dropPuzzle(event);"></canvas></div>
+		<p>N&uacute;mero de movimientos: </p>
+		<p id ="pMovimientos">0</p>
+		<button id="buttonComprobar" onclick = "comprobarResultado();">Comprobar</button>
+		
+	</section>
+
+	<section id="sectionPiezas" class ="transparentar">
+		<h2 id="h2Piezas">Arrastra las piezas a una casilla vac&iacute;a del Puzzle</h2>
+		<canvas id="canvasPiezas" width="525" height="395" draggable="true" ondragstart="dragStart(event);"></canvas>
+		
+	</section>
+
+</main>
+
+<footer id="footer" class ="transparentar">
+	<p>Copyright &copy; 2015, Rutas Rubi. Todos los derechos reservados | <a href="acerca.html">Acerca del sitio.</a></p>
+</footer>
+
+<div id="popUp">
+	<span id="spanPopUp"></span>
+	<button id="buttonCerrarPopUp" onclick="cerrarPopUp();">Cerrar</button>
+</div>
+
+<canvas id="canvasUnica" width="60" height="60"></canvas>
+
+</body>
+
+</html>

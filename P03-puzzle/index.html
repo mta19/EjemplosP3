@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Puzzler</title>
+	<link href='http://fonts.googleapis.com/css?family=Orbitron:900,400' rel='stylesheet' type='text/css'>
+	<link rel="shortcut icon" type="image/x-icon" href="images/icons/favicon.ico">
+	<link rel="stylesheet" href="css/reset.css">
+	<link rel="stylesheet" href="css/general.css">
+	<link rel="stylesheet" href="css/index.css">
+	<script type="text/javascript" src="js/main.js"></script>
+	<script type="text/javascript" src="js/puzzle.js"></script>
+	<script type="text/javascript">
+		function comprobar(e){
+			if(img!=null)
+			{
+				var worker = new Worker('js/comprobar.js');
+				var img1,img2;
+				var pixels1, pixels2;
+
+				var canvas = document.createElement('canvas');
+			  canvas.width = getFirst('canvas').width;
+			  canvas.height = getFirst('canvas').height;
+			  var context = canvas.getContext('2d');
+
+				for (var i = placedPieces.length - 1; i >= 0; i--) {
+					for (var j = placedPieces[i].length - 1; j >= 0; j--) {
+						if(placedPieces[i][j] != null)
+  						context.drawImage(placedPieces[i][j].firstChild,j*60,i*60);
+					};
+				};
+
+				img1 = img;
+				img2 = new Image();
+				img2.src = canvas.toDataURL();
+
+				
+				img2.onload = function(e){
+					pixels1=getImagePixels(img1);
+					pixels2=getImagePixels(img2);
+
+					console.log(img1.src);
+					console.log(img2.src);
+					worker.postMessage({'pixels1':pixels1, 'pixels2':pixels2, placed : placedPieces});
+				}
+				
+				worker.onmessage = function(e){
+					console.log(e.data);
+				}
+			}
+		}
+		function addMovement(){
+			movements++;
+			getFirst("#moves").innerHTML = movements;
+		}
+		function changeTab(e){
+			var last_button, new_button, last_tab, new_tab, first_tab;
+			last_button = getFirst('#menu li.active');
+			new_button = e.currentTarget;
+
+			first_tab = getFirst("[data-taborder='0']");
+			last_tab = getFirst('#' + last_button.dataset.tab);
+			new_tab = getFirst('#' + new_button.dataset.tab);
+			
+			last_button.classList.toggle("active");
+			new_button.classList.toggle("active");
+
+			var margin = '-' + parseInt(new_tab.dataset.taborder) * 100 + '%';
+			first_tab.style.marginLeft = margin ;
+		}
+
+		function file_listener(e){
+			if (e.stopPropagation)
+				e.stopPropagation(); // Evita la propagación del evento
+			e.preventDefault(); // Cancela la acción por defecto. Alternativa a: return false;
+			
+			var fichero = (e.dataTransfer)? e.dataTransfer.files : e.currentTarget.files;
+			fichero = fichero[0];
+			if(isImage(fichero))
+			{
+				var reader = new FileReader();
+				reader.onload = function(e){
+					var img = new Image();
+					img.src = e.target.result;
+					img.dataset.name = fichero.name;
+					loadImage(img);
+				}
+				reader.readAsDataURL(fichero);
+			}
+			else
+			{
+				message({
+					data: 'El fichero debe ser una imagen.',
+					showAccept: true,
+					showClose: false,
+					top:'50px'
+				});
+			}
+		}
+
+		function drag_listener(e){
+			if(e.dataTransfer.types.indexOf("Files") != -1)//Estoy arrastrando un neuvo archivo
+			{
+				var fileInput = getFirst("input[type='file']");
+				var div_fakefile = getFirst("input[type='file'] + div");
+				
+				div_fakefile.style.display = '';
+
+				fileInput.disabled = false;
+				fileInput.style.display = '';
+				getFirst("input[type='file'] + div span").style.webkitAnimationPlayState = "running";		
+
+				setTimeout(function(){
+					div_fakefile.style.opacity = '';
+				},1);			
+			}
+		}
+
+		function toggleHelp(e){
+			var img=getFirst('#canvas div + img');
+			var hidden= img.style.display=='none';
+			if(hidden)
+			{
+				img.style.display='';
+				setTimeout(function(){
+					img.style.opacity='1';
+				},1);
+				addMovement();
+			}
+			else
+			{
+				img.style.opacity='0';
+				setTimeout(function(){
+					img.style.display='none';
+				},500);			
+			}
+		}
+
+		function placePiece(e){
+			var pos = getPos(getFirst('canvas'));
+			var y = Math.floor((e.clientX - pos.x)/60);
+			var x = Math.floor((e.clientY - pos.y)/60);
+			console.log('Drop');
+			if(placedPieces[x][y]==null)
+			{
+				var piece;
+				if(e.dataTransfer)
+					piece = pieces[e.dataTransfer.getData('text')];
+				else
+					piece = pieces[activePiece];
+				placedPieces[x][y] = piece;
+
+				if(piece.dataset.container!=-1)//Si arrastro desde un contenedor
+				{
+					var cont = containers[piece.dataset.container];
+					cont.splice(cont.indexOf(piece),1);
+					piece.parentNode.removeChild(piece);
+				}
+				else //Si arrastro dede dentro
+				{
+					for (var i = placedPieces.length - 1; i >= 0; i--) {
+						for (var j = placedPieces[i].length - 1; j >= 0; j--) {
+							if(placedPieces[i][j]!=null && 
+							   placedPieces[i][j].dataset.index==e.dataTransfer.getData('text'))
+							{
+								placedPieces[i][j]=null;
+							}
+						};
+					};
+					placedPieces[x][y] = piece;
+				}
+				piece.dataset.container = -1;
+				addMovement();
+			}
+			e.preventDefault();
+		}
+
+		function listeners(){
+			var menu_items = get("#menu li");
+			for (var i = menu_items.length - 1; i >= 0; i--)
+			{
+				var tab_id = menu_items[i].dataset.tab;
+				if(tab_id)
+				{
+					menu_items[i].onclick = changeTab;
+				}
+			};
+
+			//Drag & Drop listeners
+			var canvas = getFirst('canvas');
+			var file_input = getFirst('input[type="file"]');
+			var canvas_div = getFirst('#canvas');
+
+			file_input.ondrop = file_listener;
+			file_input.onchange = file_listener;
+			canvas_div.ondragenter = drag_listener;
+			
+			file_input.ondragleave = function(e){
+				if(img)
+				{
+					getFirst("input[type='file'] + div").style.opacity = "0";
+					e.target.disabled = false;
+					e.target.style.display = 'none';
+					getFirst("input[type='file'] + div span").style.webkitAnimationPlayState = "paused";					
+				}
+			}
+
+			canvas.ondragenter=function(e){
+				e.preventDefault();
+				e.dataTransfer.dropEffect = 'move';
+			}
+
+			canvas.ondragover=function(e){
+				var pos = getPos(getFirst('canvas'));
+				var y = Math.floor((e.clientX - pos.x)/60);
+				var x = Math.floor((e.clientY - pos.y)/60);
+				if(placedPieces[x][y]!=null)
+				{
+					ctx.fillRect(0,0,60,60);
+				}
+
+				e.preventDefault();
+			}
+			canvas.ondragstart=function(e){
+				var pos = getPos(getFirst('canvas'));
+				var y = Math.floor((e.clientX - pos.x)/60);
+				var x = Math.floor((e.clientY - pos.y)/60);
+				if(placedPieces[x][y]!=null)
+				{
+					var data=placedPieces[x][y].dataset.index;
+					console.log('Drag % drop data : ' + data);
+					
+					e.dataTransfer.setData('text', data);
+					e.dataTransfer.effectAllowed = 'copyMove';
+
+					var img=pieces[data].firstChild.cloneNode(true);
+					img.style.transform='';
+					img.style.WebkitTransform='';
+					e.dataTransfer.setDragImage(img, img.width/2,img.height/2);
+				}
+				else
+				{
+					e.preventDefault();
+				}
+			}
+
+			canvas.addEventListener('drop',function(e){placePiece(e);},false);
+			canvas.addEventListener('click',function(e){placePiece(e);},false);
+			
+			// Vista previa de la imagen
+			var img_preview = getFirst("input[type='file'] + div + img");
+			img_preview.style.display="none";
+			img_preview.onload=function(){
+				img_preview.style.display="";
+				setTimeout(function(){
+					img_preview.style.opacity="1";				
+				},1);
+				
+				var div = getFirst("input[type='file'] + div");
+				var span = getFirst("input[type='file'] + div span");
+				var input= getFirst("input[type='file']");
+
+				div.style.opacity = "0";
+				div.style.display = 'none';
+				input.style.display = 'none';
+
+				input.disabled = true;
+				span.style.webkitAnimationPlayState = "paused";
+			}
+			img_preview.onunload=function(){
+				img_preview.style.opacity="0";
+				setTimeout(function(){
+					img_preview.style.display="none";
+				},500);
+			}
+
+			//Responsive trocitos function
+			var last_size = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
+			window.addEventListener("resize", function(){
+				if(pieces && pieces.length>0){
+					var new_size = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
+					var change = false;
+					if(new_size<900 && last_size>=900 || new_size>1200 && last_size<=1200)
+						change = true;
+
+					if(new_size>900 && new_size<1200 && (last_size>1200 || last_size<=900))
+						change = true;
+
+					if(change)
+					{
+						var divs = get(".piezas div, .piezas2 div");
+						placeImages(getRemainingPieces(),false);
+						last_size = new_size;
+					}
+				}
+			});
+			//-----------------------------------------------------------------------------------------------
+			//                                      TROCITOS MOVIDICOS
+			//-----------------------------------------------------------------------------------------------
+			function shake() {
+				if(pieces)
+				{
+					var r = random(0,pieces.length);
+					var img = getFirst('img',pieces[r]);
+					if(img)
+					{
+						img.classList.toggle('shaked');
+						img.addEventListener("webkitAnimationEnd", function(){
+							this.classList.remove('shaked');
+						},false);
+						img.addEventListener("animationend", function(){
+							this.classList.remove('shaked');
+						},false);
+						img.addEventListener("oanimationend", function(){
+							this.classList.remove('shaked');
+						},false);
+					}
+				}
+			}
+			(function loop() {
+			    var rand = random(0,20000);
+			    setTimeout(function() {
+			            shake();
+			            loop();  
+			    }, rand);
+			})();
+		}
+	</script>
+</head>
+<body onload="listeners()">
+	<header>
+		<div class="wrapper">
+			<div id="logo"></div>
+		</div>
+	</header>
+	<div class="outer">
+		<div class="middle">
+			<nav>
+				<div class="wrapper">
+					<ul id="menu">
+						<li class="active" data-tab="game">
+							<span>PUZZLE</span>
+						</li>
+						<li data-tab="about">
+							<span>ABOUT</span>
+						</li>
+					</ul>
+				</div>
+			</nav>
+			<div id="main" class="wrapper inner">
+				<div class="window">
+					<div id="game" class="tab" data-taborder="0">
+						<div class="piezas">
+						</div>
+						<div id="canvas">
+							<canvas width="480" height="360" draggable="true"></canvas>
+							<script type="text/javascript" src="js/puzzle.js"></script>
+							<input type="file" name="" id="">
+							<div>
+								<span>SUBE TU IMAGEN <br> AQUÍ</span>
+							</div>
+							<img src="" alt="">
+						</div>
+						<div class="piezas"></div><div class="piezas2"></div>
+						<input type="button" value="Ayuda" onclick="toggleHelp(event)">
+						<span id="moves"></span>
+						<input type="button" value="Comprobar" onclick="comprobar(event)">
+						<!-- <img src="" alt="" width="100" height="75" style="background-color: #aaa;"> -->
+					</div>
+					<div id="about" class="tab" data-taborder="1">
+							<p>asd</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<footer>
+		<div class="wrapper"></div>
+	</footer>
+</body>
+</html>

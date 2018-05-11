@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Senderismo - About</title>
+	<link rel="shortcut icon" type="image/x-icon" href="images/montana.png"/>
+	<link rel="stylesheet" href="css/reset.css">
+	<link rel="stylesheet" href="css/general.css">
+	<link rel="stylesheet" href="css/about.css">
+	<link href='http://fonts.googleapis.com/css?family=Muli' rel='stylesheet' type='text/css'>
+	<script type="text/javascript" src="js/main.js"></script>
+	<script type="text/javascript">
+	function init_listeners(){
+		getFirst('#sub').onclick=listener_login;
+
+		if(isLogged())
+		{
+			var str="Bienvenido, " + getSession("nombre") + ".";
+      document.loginform.innerHTML='';
+      mensajeEn(document.loginform,str,'loginmsg');
+      show(getFirst("#nuevaruta"));
+      displayLogout();
+		}
+		else
+		{
+			hide(getFirst("#nuevaruta"));
+		}
+	}
+	</script>
+</head>
+<body onLoad='init_listeners()'>
+	<header>
+		<a href="/HP2Alberto/">
+			<img src="images/montana.png" alt="Logo de la p&aacute;gina web" id="logo"/>
+			<span>Terranova <br><span>montañismo</span></span>
+		</a>
+	<form id='loginform' name='loginform'>
+		<input tabindex="1" type="text" name="user" placeholder="Usuario" pattern="[a-zA-Z0-9]+" 
+		 data-errormessage="El nombre de usuario sólo puede contener números y letras." 
+		 required/><input tabindex="3" id="sub" type="button" value="Login"/>
+		<br/>
+
+		<input tabindex="2" type="password" name="password" placeholder="Contraseña" 
+		data-errormessage="La contraseña debe empezar por una letra y sólo puede contener letras, número y los símbolos '-' y '_'. (Entre 5 y 10 caracteres)"
+		pattern="^[a-zA-Z][a-zA-Z0-9-_\.]{4,10}$" required/>
+		<a href="/HP2Alberto/registro.html">
+			<input tabindex="4" type="button" value="Regístrate" />
+		</a>
+		<br/>
+	</form>
+	</header>
+	<div id="main">
+		<div>
+			<p>Práctica 1 de la asignatura
+			Programación Hipermedia II, que pertenece al 3er curso de la titulación
+			de Ingeniería Multimedia.</p>
+
+			<p>
+				48723613-E, Alberto Martínez Corbalán, Grupo de prácticas de los Jueves de 9-11, amc176@alu.ua.es
+			</p>
+
+			<p>
+				He implementado todas las partes de la práctica, pero no le he pasado el validador de la W3C por falta de tiempo.
+			</p>
+		</div>
+	</div>
+
+	<div>
+			<p>Práctica 2 de la asignatura
+			Programación Hipermedia II, que pertenece al 3er curso de la titulación
+			de Ingeniería Multimedia.</p>
+
+			<p>
+				48723613-E, Alberto Martínez Corbalán, Grupo de prácticas de los Jueves de 9-11, amc176@alu.ua.es
+			</p>
+
+			<p>
+				He implementado todo salvo la página de nueva ruta. Tampoco he posido pasarle el validador.
+				Me he centrado en hacer bien el código de Ajax y el estilo de esta segunda práctica se me ha quedado 
+				descuidado.
+				Supongo que la mayor incompatibilidad que puede sufrir la página es la referente a la API de webStorage.
+			</p>
+		</div>
+	</div>
+	<footer>
+		<ul>
+			<li><a href="about.html"><span>Acerca de senderismo.org</span></a></li>
+			<li><a href="#"><span>Términos de servicio</span></a></li>
+			<li><a href="#"><span>Política de privacidad</span></a></li>
+			<li><a href="#"><span>Copyright &copy;</span></a></li>
+		</ul>
+	</footer>
+</body>
+</html>

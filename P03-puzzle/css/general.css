@@ -1,0 +1,206 @@
+/**************************************************************************************************************/
+/*                                           ULTRA ALIGN
+/**************************************************************************************************************/
+.outer {
+    display: table;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+}
+
+.middle {
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.inner {
+    margin-left: auto;
+    margin-right: auto; 
+}
+
+/**************************************************************************************************************/
+/*                                           GENERALIDADES
+/**************************************************************************************************************/
+
+.frontground{
+	pointer-events: none;
+	top:0px;
+	left:0px;
+	position: fixed;
+	width: 100%;
+	height: 100%;
+	background-color: #000;
+	opacity:0;
+	transition:1s;
+}
+
+body{
+	margin: 0px;
+	/*background: url('../images/icons/bg-pattern.png') no-repeat center center fixed; */
+	background: url('../images/icons/bg-pattern.png');
+}
+.clear{
+	clear: both;
+}
+
+.message{
+	position: fixed;
+	text-align:center;
+	overflow:hidden;
+	white-space: nowrap;
+	z-index:10;
+	background-color: #AAA;
+	font-family: 'Orbitron', sans-serif;
+	width: 400px;
+	height:60px;
+	color:black;
+	font-size: 20px;
+	border: 2px solid #555;
+	left:50%;
+	top: 50%;
+	transform: translate(-50%,-50%);
+	transition: width 0.5s, height 0.5s, top 0.8s, left 0.8s, opacity 0.5s;
+	opacity: 0;
+}
+
+.message .cerrar{
+	cursor:pointer;
+  box-sizing: border-box;
+  font-size: 17px;
+  padding-left: 0px;
+  padding-bottom: 19px;
+  position: absolute;
+  right: 0;
+  top: -1px;
+  width: 20px;
+  height: 20px;
+  border-left: 2px solid #555;
+  border-bottom: 2px solid #555;
+}
+
+.message > p{
+	margin-top: 6px;
+}
+
+.message button{
+	font-family: 'Orbitron', sans-serif;
+	color: #000;
+	background-color: #aaa;
+	border: 2px solid #555;
+	outline:none;
+	cursor:pointer;
+	margin: 6px 10px 0px 10px;
+}
+
+.message button:hover, .message .cerrar:hover{
+	background-color: #6DDDE7;
+}
+
+#main{
+	overflow: hidden;
+}
+
+.wrapper{
+	width: 1500px;
+	margin: 0 auto;
+}
+
+.tab{
+	width: 100%;
+	height: 100%;
+	transition: 0.5s;
+}
+
+.window{
+	width: 200%;
+	overflow: hidden;
+	display: inline-flex;
+	flex-direction: row;
+	flex-wrap: nowrap;
+}
+
+#menu{
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	margin-top: 32px;
+	text-align:center;
+}
+
+#menu li{
+	box-sizing:border-box;
+	cursor: pointer;
+	display:table;
+	text-align: center;
+	font-family: 'Orbitron', sans-serif;
+	font-size: 38px;
+	width: 240px;
+	height: 65px;
+	background-color: #AAA;
+	border: 1px solid black;
+}
+
+#menu li span{
+	display:table-cell;
+	vertical-align:middle;
+}
+
+#menu li:not(.active):hover > span{
+	-webkit-animation-name: shake;
+	-webkit-animation-duration: 300ms;
+	-webkit-animation-iteration-count: 1;
+	-webkit-animation-timing-function: ease;
+}
+
+#menu li.active, #menu li:hover{
+	background-color: #6DDDE7;
+}
+
+@-webkit-keyframes spaceboots {
+	0% { -webkit-transform: translate(2px, 1px) rotate(0deg); }
+	10% { -webkit-transform: translate(-1px, -2px) rotate(-1deg); }
+	20% { -webkit-transform: translate(-3px, 0px) rotate(1deg); }
+	30% { -webkit-transform: translate(0px, 2px) rotate(0deg); }
+	40% { -webkit-transform: translate(1px, -1px) rotate(1deg); }
+	50% { -webkit-transform: translate(-1px, 2px) rotate(-1deg); }
+	60% { -webkit-transform: translate(-3px, 1px) rotate(0deg); }
+	70% { -webkit-transform: translate(2px, 1px) rotate(-1deg); }
+	80% { -webkit-transform: translate(-1px, -1px) rotate(1deg); }
+	90% { -webkit-transform: translate(2px, 2px) rotate(0deg); }
+	100% { -webkit-transform: translate(1px, -2px) rotate(-1deg); }
+}
+
+.shaked{
+	-webkit-animation-name: spaceboots;
+	-webkit-animation-duration: 0.4s;
+	-webkit-transform-origin:50% 50%;
+	-webkit-animation-iteration-count: 5;
+	-webkit-animation-timing-function: linear;
+}
+
+@-webkit-keyframes shake {
+	0% { -webkit-transform: scale(1); }
+	25% { -webkit-transform: scale(0.95); }
+	50% { -webkit-transform: scale(1); }
+	75% { -webkit-transform: scale(0.95); }
+	100% { -webkit-transform: scale(1); }
+}
+
+@media (min-width: 1200px) and (max-width: 1500px){
+	.wrapper{
+		width:1200px;
+	}
+}
+@media (min-width: 900px) and (max-width: 1200px){
+	.wrapper{
+		width:900px;
+	}
+}
+@media (max-width: 900px){
+	.wrapper{
+		width:640px;
+	}
+	#menu{
+		margin:0;
+	}
+}

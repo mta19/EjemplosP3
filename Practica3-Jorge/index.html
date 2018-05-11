@@ -1,0 +1,30 @@
+<!DOCTYPE HTML>
+<html lang="es">
+<head>
+	<meta charset="UTF-8">
+	<script type="text/javascript" src="juego.js"></script>
+	<link rel="stylesheet" type="text/css" href="estilo.css">
+	<title>Puzzle</title>
+</head>
+<body onload="iniciar(); dibujaCuadricula()"><div id="cortina"></div>
+	<div id="centrar">
+		<header><h1>Puzzle</h1></header>
+		<section id="accion">
+			<button onClick="comprobar();">Comprobar</button> <br><span id ="result"></span>
+			<p id="nmovs">Numero de movimientos: <span id ="movs">0</span></p>
+			<img width ="480" height="360" id="img" src="ej.jpg" alt="hola">	
+			<canvas width="480" height="360" id="canvas" draggable="true" onClick="colocarClick(event)" ondragover="dragOver(event)" ondrop="colocarClick(event)"></canvas>
+			
+			<input type="file" name="imagen" id="imagen" accept="image/*" onchange="readURL(this)">
+				<div id="click">
+					<button id="click2">Click aqui para seleccionar imagen</button>
+				</div>
+
+			<section id="ocupado"><h2>Ya esta ocupado</h2><button onClick="ocupado();">seguir</button>
+			</section>
+			<section id="piezas"><h2 id="piezasp"></h2></section>
+		</section>
+		<footer><a href="acerca.html">Acerca</a></footer>
+	</div>
+</body>
+</html>

@@ -1,0 +1,220 @@
+#imgSelecionada {
+  width: 480px;
+  height: 360px;
+  border: 3px dashed gray;
+  border-radius: 8px;
+  background: rgb(255,255,255);
+  background-repeat: no-repeat;
+  background-size: 100%;
+}
+
+#canvasPuzzle{
+	background-color: #bbb;
+	border:1px solid
+}
+
+#canvasPiezas{
+	border:1px solid
+}
+
+#buttonComprobar{
+  visibility: hidden;
+}
+
+#h2Cargador,#h2Puzzle,#inputSeleccionar,#canvasUnica{
+  display: none;
+}
+
+
+/*POP UP ***************************************************************************/
+
+#popUp {
+
+    visibility: hidden;
+    
+    font-family:Arial,Helvetica,sans-serif;
+    
+    position: absolute;
+    top: 50%; 
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+
+    text-align:center;
+    font-weight:bold;
+    font-size:100%;
+    color: #27aae1;
+    padding:70px 20px 70px 20px;
+    background-color:#d2ff52;
+
+    border-radius: 25px;
+}
+
+#message span {
+    text-align: center;
+    width: 95%;
+    float:left;
+}
+
+.close-notify {
+    white-space: nowrap;
+    float:right;
+    margin-right:10px;
+    color:#fff;
+    text-decoration:none;
+    border:2px #fff solid;
+    padding-left:3px;
+    padding-right:3px
+}
+
+.close-notify a {
+    color: #fff;
+}
+
+
+/*POP UP ***************************************************************************/
+
+html,body{
+  margin: 0px;
+    padding: 0px;
+
+  height: 100%;
+  width: 100%;
+
+    overflow-x: hidden;
+    background-color: #f1f1f1;
+
+}
+
+
+h1#h1{
+  display: inline;
+  font: 150% sans-serif;
+  margin:1em;
+
+
+}
+
+p,a,h1,h2{
+  font-family: sans-serif;
+}
+
+header#header{
+  width: 100%;
+
+background: #d2ff52; /* Old browsers */
+background: -moz-linear-gradient(top,  #d2ff52 0%, #91e842 100%); /* FF3.6+ */
+background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#d2ff52), color-stop(100%,#91e842)); /* Chrome,Safari4+ */
+background: -webkit-linear-gradient(top,  #d2ff52 0%,#91e842 100%); /* Chrome10+,Safari5.1+ */
+background: -o-linear-gradient(top,  #d2ff52 0%,#91e842 100%); /* Opera 11.10+ */
+background: -ms-linear-gradient(top,  #d2ff52 0%,#91e842 100%); /* IE10+ */
+background: linear-gradient(to bottom,  #d2ff52 0%,#91e842 100%); /* W3C */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#d2ff52', endColorstr='#91e842',GradientType=0 ); /* IE6-9 */
+
+color: #27aae1;
+  box-shadow:0px 2px 2px #888;
+
+}
+
+img#imgLogo{
+  margin-left: 10px;
+  margin-top: 4px;
+  margin-bottom: 2px;
+}
+
+#pCargador,#h2Piezas{
+  font: 120% sans-serif;
+}
+
+footer#footer{
+  margin: 0px;
+    padding: 0px;
+
+background: #d2ff52; /* Old browsers */
+background: -moz-linear-gradient(top,  #d2ff52 0%, #91e842 100%); /* FF3.6+ */
+background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#d2ff52), color-stop(100%,#91e842)); /* Chrome,Safari4+ */
+background: -webkit-linear-gradient(top,  #d2ff52 0%,#91e842 100%); /* Chrome10+,Safari5.1+ */
+background: -o-linear-gradient(top,  #d2ff52 0%,#91e842 100%); /* Opera 11.10+ */
+background: -ms-linear-gradient(top,  #d2ff52 0%,#91e842 100%); /* IE10+ */
+background: linear-gradient(to bottom,  #d2ff52 0%,#91e842 100%); /* W3C */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#d2ff52', endColorstr='#91e842',GradientType=0 ); /* IE6-9 */
+
+  border-bottom: 1px solid #1c326d;
+  border-top: 1px solid #1c326d;
+  text-align: center;
+
+  box-shadow:0px -2px 2px #888;
+
+  color: #27aae1;
+}
+
+
+#sectionPuzzle{
+
+margin-bottom: 2em;
+width: 50%;
+float: left;
+padding-top:4.1em;
+}
+#sectionPuzzle>p{
+
+  width: 11em;
+  float: left;
+}
+
+
+#sectionCargador{
+  width: 50%;
+  float:left;
+}
+
+#sectionPiezas{
+
+  margin-left: 33%;
+}
+
+main{
+  margin-left: 2em;
+  margin-bottom: 2em;
+}
+
+#sectionIntroduccion,#sectionInfo{
+  margin-top:4.5em;
+}
+
+@media screen and (max-width:1050px){
+
+  #sectionPuzzle{
+
+    margin-bottom: 2em;
+    width: 100%;
+    float: left;
+    padding-top:3.5em;
+  }
+
+  #sectionCargador{
+    width: 100%;
+    float:left;
+  }
+
+  #sectionPiezas{
+
+    margin-left: 0;
+  }
+
+  main{
+
+    padding-left: 20%;
+  }
+}
+
+@media screen and (max-width:720px){
+
+  main{
+
+    padding-left: 0;
+  }
+  body{
+    overflow-x:scroll; 
+  }
+}
